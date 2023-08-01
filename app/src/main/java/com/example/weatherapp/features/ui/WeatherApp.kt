@@ -1,5 +1,6 @@
 package com.example.weatherapp.features.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.weatherapp.R
 import com.example.weatherapp.features.data.DrawerState
+import com.example.weatherapp.features.data.TopBarState
 import com.example.weatherapp.features.data.WeatherUiState
 import com.example.weatherapp.features.data.WeatherViewModel
 import kotlinx.coroutines.launch
@@ -37,6 +39,7 @@ fun WeatherApp(
     val weatherViewModel: WeatherViewModel =
         viewModel(factory = WeatherViewModel.Factory)
     val weatherUiState = weatherViewModel.weatherUiState
+    val topBarState = weatherViewModel.topBarState
 
     Scaffold(
         modifier = Modifier
@@ -48,13 +51,20 @@ fun WeatherApp(
         },
 
         topBar = {
-            UnfocusedWeatherBar(
+            MainWeatherBar(
+                topBarState = topBarState,
                 weatherUiState = weatherUiState,
-                scaffoldState = scaffoldState,
-                onClickMenuButton = {
+                onMenuButtonClick = {
                     scope.launch {
                         scaffoldState.drawerState.open()
+                        Log.d("myLogs", (weatherUiState as WeatherUiState.Success).weatherInfo.condition?.icon!!)
                     }
+                },
+                onUnfocusedSearchClick = {
+                    weatherViewModel.changeTopBarState(TopBarState.FOCUSED)
+                },
+                onCancelButtonClick = {
+                    weatherViewModel.changeTopBarState(TopBarState.UNFOCUSED)
                 }
             )
         },

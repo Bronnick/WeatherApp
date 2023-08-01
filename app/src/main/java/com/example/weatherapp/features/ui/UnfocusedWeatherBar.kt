@@ -11,20 +11,21 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
+import com.example.weatherapp.features.data.TopBarState
 import com.example.weatherapp.features.data.WeatherUiState
 
 
 @Composable
 fun UnfocusedWeatherBar(
     weatherUiState: WeatherUiState,
-    scaffoldState: ScaffoldState,
-    onClickMenuButton: () -> Unit
+    onMenuButtonClick: () -> Unit,
+    onUnfocusedSearchClick: () -> Unit
 ) {
-
     var cityName: String? = null
     var country: String? = null
 
@@ -33,36 +34,40 @@ fun UnfocusedWeatherBar(
         country = weatherUiState.weatherInfo.country
     }
 
-    Row{
-        IconButton(onClick = {
-            onClickMenuButton()
-        }) {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = null
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f, true))
+    TopAppBar(
+        backgroundColor = Color.Transparent.copy(alpha = 0.1f)
+    ) {
+        Row {
+            IconButton(onClick = {
+                onMenuButtonClick()
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = null
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f, true))
 
-        if(cityName != null && country != null) {
-            Text(
-                text =
+            if (cityName != null && country != null) {
+                Text(
+                    text =
                     stringResource(
                         R.string.location_info,
                         cityName,
                         country
                     ),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-        }
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
 
-        Spacer(modifier = Modifier.weight(1f, true))
-        IconButton(onClick = {}) {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = null
-            )
+            Spacer(modifier = Modifier.weight(1f, true))
+            IconButton(onClick = onUnfocusedSearchClick) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = null
+                )
+            }
         }
     }
 

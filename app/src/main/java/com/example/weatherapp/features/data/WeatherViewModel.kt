@@ -64,6 +64,10 @@ class WeatherViewModel(
         }
     }
 
+    fun changeTopBarState(newState: TopBarState){
+        topBarState = newState
+    }
+
     fun changeDrawerState(newState: DrawerState){
         drawerState.value = newState
         Log.d("myLogs", "Drawer state changed")
