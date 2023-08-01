@@ -43,7 +43,7 @@ fun HomeScreen(
     )
 
     when(weatherUiState) {
-        is WeatherUiState.Success -> WeatherScreen(weatherUiState.weatherInfo)
+        is WeatherUiState.Success -> WeatherMainInfo(weatherUiState.weatherInfo)
         is WeatherUiState.Error -> Text(text = "Error") //TODO
         is WeatherUiState.Loading -> Text(text = "LOading") //TODO
     }
