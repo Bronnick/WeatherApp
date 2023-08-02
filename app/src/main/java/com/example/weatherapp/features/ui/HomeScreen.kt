@@ -17,12 +17,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.R
+import com.example.weatherapp.features.data.TemperatureState
 import com.example.weatherapp.features.data.WeatherInfo
 import com.example.weatherapp.features.data.WeatherUiState
 
 @Composable
 fun HomeScreen(
     weatherUiState: WeatherUiState,
+    temperatureState: TemperatureState,
     modifier: Modifier
 ){
     val brightness = -50f
@@ -43,7 +45,10 @@ fun HomeScreen(
     )
 
     when(weatherUiState) {
-        is WeatherUiState.Success -> WeatherMainInfo(weatherUiState.weatherInfo)
+        is WeatherUiState.Success -> WeatherMainInfo(
+            weatherInfo = weatherUiState.weatherInfo,
+            temperatureState = temperatureState
+        )
         is WeatherUiState.Error -> Text(text = "Error") //TODO
         is WeatherUiState.Loading -> Text(text = "LOading") //TODO
     }

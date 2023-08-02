@@ -2,5 +2,11 @@
     <string name="app_name">WeatherApp</string>
 
     <string name="location_info">%1$s, %2$s</string>
-    <string name="feels_like_celsius">Feels like: %1$s°C</string>
+    <string name="temperature_info">%1$s°%2$s</string>
+    <string name="feels_like">Feels like: %1$s°%2$s</string>
+
+
+    <string name="drawer_item1">Home</string>
+    <string name="drawer_item2">Temperature</string>
+
 </resources>

@@ -40,6 +40,7 @@ fun WeatherApp(
         viewModel(factory = WeatherViewModel.Factory)
     val weatherUiState = weatherViewModel.weatherUiState
     val topBarState = weatherViewModel.topBarState
+    val temperatureState = weatherViewModel.temperatureState
 
     Scaffold(
         modifier = Modifier
@@ -47,7 +48,12 @@ fun WeatherApp(
 
         scaffoldState = scaffoldState,
         drawerContent = {
-
+            Drawer(
+                temperatureState = weatherViewModel.temperatureState,
+                onTemperatureSwitch = {
+                    weatherViewModel.switchTemperatureState()
+                }
+            )
         },
 
         topBar = {
@@ -71,7 +77,8 @@ fun WeatherApp(
     ) {
         HomeScreen(
             modifier = Modifier.padding(it),
-            weatherUiState = weatherUiState
+            weatherUiState = weatherUiState,
+            temperatureState = weatherViewModel.temperatureState
         )
     }
 }

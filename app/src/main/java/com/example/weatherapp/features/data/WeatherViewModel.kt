@@ -1,7 +1,10 @@
 package com.example.weatherapp.features.data
 
 import android.util.Log
+import androidx.compose.material.Icon
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -12,7 +15,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.weatherapp.features.repository.NetworkWeatherRepository
 import com.example.weatherapp.features.repository.WeatherRepository
+import com.example.weatherapp.features.ui.DrawerItem
 import kotlinx.coroutines.launch
+import okhttp3.internal.immutableListOf
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -32,6 +37,11 @@ enum class DrawerState{
     CLOSED
 }
 
+enum class TemperatureState{
+    CELSIUS,
+    FAHRENHEIT
+}
+
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
@@ -41,8 +51,8 @@ class WeatherViewModel(
     var topBarState: TopBarState by mutableStateOf(TopBarState.UNFOCUSED)
         private set
 
-    val drawerState: MutableLiveData<DrawerState> =
-        MutableLiveData(DrawerState.CLOSED)
+    var temperatureState: TemperatureState by
+        mutableStateOf(TemperatureState.CELSIUS)
 
     init{
         getWeatherInfo("Kiev")
@@ -68,9 +78,10 @@ class WeatherViewModel(
         topBarState = newState
     }
 
-    fun changeDrawerState(newState: DrawerState){
-        drawerState.value = newState
-        Log.d("myLogs", "Drawer state changed")
+    fun switchTemperatureState(){
+        if(temperatureState == TemperatureState.CELSIUS)
+            temperatureState = TemperatureState.FAHRENHEIT
+        else temperatureState = TemperatureState.CELSIUS
     }
 
     companion object {

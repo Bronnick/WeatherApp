@@ -14,17 +14,28 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.weatherapp.features.data.WeatherInfo
 import com.example.weatherapp.R
 import com.example.weatherapp.app.theme.Shapes
+import com.example.weatherapp.features.data.TemperatureState
 
 @Composable
 fun WeatherMainInfo(
-    weatherInfo: WeatherInfo
+    weatherInfo: WeatherInfo,
+    temperatureState: TemperatureState
 ){
+    val temperatureValue =
+        if(temperatureState == TemperatureState.CELSIUS) weatherInfo.temperatureCelsius
+        else weatherInfo.temperatureFahrenheit
+
+    val temperatureString =
+        if(temperatureState == TemperatureState.CELSIUS) "C"
+        else "F"
+
     Box(
         modifier = Modifier
             .padding(all = 4.dp)
@@ -38,11 +49,19 @@ fun WeatherMainInfo(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier.padding(4.dp),
-                    text = "${weatherInfo.temperatureCelsius}°",
+                    text = stringResource(
+                        id = R.string.temperature_info,
+                        temperatureValue.toString(),
+                        temperatureString
+                    ),
                     fontSize = 30.sp,
                     color = MaterialTheme.colors.onBackground
                 )
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier
+                        .width(50.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     AsyncImage(
                         modifier = Modifier
                             .size(50.dp),
@@ -52,15 +71,17 @@ fun WeatherMainInfo(
                     )
                     Text(
                         text = weatherInfo.condition?.text ?: "",
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontSize = 11.sp
                     )
                 }
             }
             
             Text(
                 text = stringResource(
-                    id = R.string.feels_like_celsius,
-                    weatherInfo.feelsLikeCelsius.toString()
+                    id = R.string.feels_like,
+                    temperatureValue.toString(),
+                    temperatureString
                 ),
                 modifier = Modifier
                     .padding(top=8.dp)
