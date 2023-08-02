@@ -32,6 +32,10 @@ fun WeatherMainInfo(
         if(temperatureState == TemperatureState.CELSIUS) weatherInfo.temperatureCelsius
         else weatherInfo.temperatureFahrenheit
 
+    val temperatureFeelsLikeValue =
+        if(temperatureState == TemperatureState.CELSIUS) weatherInfo.feelsLikeCelsius
+        else weatherInfo.feelsLikeFahrenheit
+
     val temperatureString =
         if(temperatureState == TemperatureState.CELSIUS) "C"
         else "F"
@@ -80,7 +84,7 @@ fun WeatherMainInfo(
             Text(
                 text = stringResource(
                     id = R.string.feels_like,
-                    temperatureValue.toString(),
+                    temperatureFeelsLikeValue.toString(),
                     temperatureString
                 ),
                 modifier = Modifier

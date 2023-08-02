@@ -38,9 +38,11 @@ fun UnfocusedWeatherBar(
         backgroundColor = Color.Transparent.copy(alpha = 0.1f)
     ) {
         Row {
-            IconButton(onClick = {
-                onMenuButtonClick()
-            }) {
+            IconButton(
+                onClick = {
+                    onMenuButtonClick()
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = null

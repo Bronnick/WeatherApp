@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -20,31 +22,44 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.ImeAction
 
 @Composable
 fun FocusedWeatherBar(
-    onCancelButtonClick: () -> Unit
+    focusedTextState: String,
+    onFocusedTextChange: (String) -> Unit,
+    onCancelButtonClick: () -> Unit,
+    onKeyboardSearchClick: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf("") }
 
     TopAppBar(
         modifier = Modifier
             .fillMaxWidth()
     ){
         TextField(
-            value = textFieldValue,
-            onValueChange = {
-                textFieldValue = it
-            }
-        )
-        IconButton(
-            onClick = onCancelButtonClick,
-            modifier = Modifier
-                .fillMaxWidth()) {
-            Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = null
+            modifier = Modifier.
+                fillMaxWidth(),
+            value = focusedTextState,
+            onValueChange = onFocusedTextChange,
+            singleLine = true,
+            trailingIcon = {
+                IconButton(
+                    onClick = onCancelButtonClick,
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = null
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Search
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onKeyboardSearchClick(focusedTextState)
+                }
             )
-        }
+        )
     }
 }

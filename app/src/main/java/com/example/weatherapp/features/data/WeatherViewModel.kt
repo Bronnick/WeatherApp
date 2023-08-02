@@ -51,8 +51,12 @@ class WeatherViewModel(
     var topBarState: TopBarState by mutableStateOf(TopBarState.UNFOCUSED)
         private set
 
+    var focusedTopBarTextState by mutableStateOf("")
+        private set
+
     var temperatureState: TemperatureState by
         mutableStateOf(TemperatureState.CELSIUS)
+        private set
 
     init{
         getWeatherInfo("Kiev")
@@ -76,6 +80,10 @@ class WeatherViewModel(
 
     fun changeTopBarState(newState: TopBarState){
         topBarState = newState
+    }
+
+    fun changeFocusedTopBarTextState(newState: String){
+        focusedTopBarTextState = newState
     }
 
     fun switchTemperatureState(){

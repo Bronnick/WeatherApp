@@ -8,13 +8,19 @@ import com.example.weatherapp.features.data.WeatherUiState
 fun MainWeatherBar(
     topBarState: TopBarState,
     weatherUiState: WeatherUiState,
+    focusedTextState: String,
+    onFocusedTextChange: (String) -> Unit,
     onMenuButtonClick: () -> Unit,
     onUnfocusedSearchClick: () -> Unit,
-    onCancelButtonClick: () -> Unit
+    onCancelButtonClick: () -> Unit,
+    onKeyboardSearchClick: (String) -> Unit
 ) {
     when(topBarState){
         TopBarState.FOCUSED -> FocusedWeatherBar(
-            onCancelButtonClick = onCancelButtonClick
+            focusedTextState = focusedTextState,
+            onFocusedTextChange = onFocusedTextChange,
+            onCancelButtonClick = onCancelButtonClick,
+            onKeyboardSearchClick = onKeyboardSearchClick
         )
         TopBarState.UNFOCUSED -> UnfocusedWeatherBar(
             weatherUiState = weatherUiState,

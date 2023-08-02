@@ -41,6 +41,7 @@ fun WeatherApp(
     val weatherUiState = weatherViewModel.weatherUiState
     val topBarState = weatherViewModel.topBarState
     val temperatureState = weatherViewModel.temperatureState
+    val focusedTopBarTextState = weatherViewModel.focusedTopBarTextState
 
     Scaffold(
         modifier = Modifier
@@ -49,7 +50,7 @@ fun WeatherApp(
         scaffoldState = scaffoldState,
         drawerContent = {
             Drawer(
-                temperatureState = weatherViewModel.temperatureState,
+                temperatureState = temperatureState,
                 onTemperatureSwitch = {
                     weatherViewModel.switchTemperatureState()
                 }
@@ -60,6 +61,10 @@ fun WeatherApp(
             MainWeatherBar(
                 topBarState = topBarState,
                 weatherUiState = weatherUiState,
+                focusedTextState = focusedTopBarTextState,
+                onFocusedTextChange = {
+                    weatherViewModel.changeFocusedTopBarTextState(it)
+                },
                 onMenuButtonClick = {
                     scope.launch {
                         scaffoldState.drawerState.open()
@@ -71,6 +76,9 @@ fun WeatherApp(
                 },
                 onCancelButtonClick = {
                     weatherViewModel.changeTopBarState(TopBarState.UNFOCUSED)
+                },
+                onKeyboardSearchClick = {
+                    weatherViewModel.getWeatherInfo(it)
                 }
             )
         },
