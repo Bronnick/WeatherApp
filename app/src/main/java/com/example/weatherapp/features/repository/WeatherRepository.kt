@@ -26,7 +26,9 @@ class NetworkWeatherRepository(
                 temperatureFahrenheit = current?.tempF,
                 feelsLikeCelsius = current?.feelslikeC,
                 feelsLikeFahrenheit = current?.feelslikeF,
-                condition = current?.condition
+                condition = current?.condition,
+                localDate = location?.localtime,
+                hourForecastList = forecast?.forecastday?.get(0)?.hour ?: emptyList()
             )
         }
     }

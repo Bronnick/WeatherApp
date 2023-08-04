@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -28,68 +29,14 @@ fun WeatherMainInfo(
     weatherInfo: WeatherInfo,
     temperatureState: TemperatureState
 ){
-    val temperatureValue =
-        if(temperatureState == TemperatureState.CELSIUS) weatherInfo.temperatureCelsius
-        else weatherInfo.temperatureFahrenheit
+    Column {
+        WeatherCurrentInfo(
+            weatherInfo = weatherInfo,
+            temperatureState = temperatureState
+        )
 
-    val temperatureFeelsLikeValue =
-        if(temperatureState == TemperatureState.CELSIUS) weatherInfo.feelsLikeCelsius
-        else weatherInfo.feelsLikeFahrenheit
-
-    val temperatureString =
-        if(temperatureState == TemperatureState.CELSIUS) "C"
-        else "F"
-
-    Box(
-        modifier = Modifier
-            .padding(all = 4.dp)
-            .fillMaxWidth()
-            .background(color = MaterialTheme.colors.background),
-        contentAlignment = Alignment.CenterEnd
-    ) {
-        Column (modifier = Modifier
-            .padding(all = 24.dp)
-        ){
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    modifier = Modifier.padding(4.dp),
-                    text = stringResource(
-                        id = R.string.temperature_info,
-                        temperatureValue.toString(),
-                        temperatureString
-                    ),
-                    fontSize = 30.sp,
-                    color = MaterialTheme.colors.onBackground
-                )
-                Column(
-                    modifier = Modifier
-                        .width(50.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    AsyncImage(
-                        modifier = Modifier
-                            .size(50.dp),
-                        model = "https:${weatherInfo.condition?.icon}",
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                    )
-                    Text(
-                        text = weatherInfo.condition?.text ?: "",
-                        textAlign = TextAlign.Center,
-                        fontSize = 11.sp
-                    )
-                }
-            }
-            
-            Text(
-                text = stringResource(
-                    id = R.string.feels_like,
-                    temperatureFeelsLikeValue.toString(),
-                    temperatureString
-                ),
-                modifier = Modifier
-                    .padding(top=8.dp)
-            )
-        }
+        WeatherForecastInfo(
+            weatherInfo = weatherInfo
+        )
     }
 }
