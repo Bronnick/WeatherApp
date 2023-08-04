@@ -35,9 +35,8 @@ fun WeatherForecastInfo(
             for(item in forecastList){
                 Column{
                     Text(
-                       text = with(item){
-                           if(time == null) ""
-                           else time?.substringAfter(" ")
+                       text = item.let{
+                           it.time?.substringAfter(" ")
                        }.toString(),
                     )
                     AsyncImage(
