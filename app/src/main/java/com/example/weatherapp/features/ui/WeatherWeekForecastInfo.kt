@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,6 +32,21 @@ fun WeatherWeekForecastInfo(
 ) {
     val weekForecastList = weatherInfo.weekListForecast
 
+    var maxDifferenceModule = 0.0
+    var minDifferenceModule = 0.0
+
+    if(temperatureState == TemperatureState.CELSIUS) {
+        for (item in weekForecastList) {
+            val currentDifferenceModule = (item.day?.maxtempC ?: 0.0) - (item.day?.mintempC ?: 0.0)
+            if (currentDifferenceModule > maxDifferenceModule){
+                maxDifferenceModule = currentDifferenceModule
+            }
+            if(currentDifferenceModule < minDifferenceModule){
+                minDifferenceModule = currentDifferenceModule
+            }
+        }
+    }
+
     Row(
         modifier = Modifier
             .padding(all = 4.dp)
@@ -39,11 +55,12 @@ fun WeatherWeekForecastInfo(
             .horizontalScroll(ScrollState(0)),
     ) {
         for (item in weekForecastList) {
+            var minTempC = item.day?.mintempC
             val minTemperatureValue =
                 if (temperatureState == TemperatureState.CELSIUS)
                     stringResource(
                         id = R.string.temperature_info,
-                        item.day?.mintempC.toString(),
+                        minTempC.toString(),
                         "C"
                     )
                 else
@@ -53,11 +70,12 @@ fun WeatherWeekForecastInfo(
                         "F"
                     )
 
+            var maxTempC = item.day?.maxtempC
             val maxTemperatureValue =
                 if (temperatureState == TemperatureState.CELSIUS)
                     stringResource(
                         id = R.string.temperature_info,
-                        item.day?.maxtempC.toString(),
+                        maxTempC.toString(),
                         "C"
                     )
                 else
@@ -66,6 +84,11 @@ fun WeatherWeekForecastInfo(
                         item.day?.maxtempF.toString(),
                         "F"
                     )
+
+            var currentDifferenceModule =
+                ((maxTempC ?: 0.0) - (minTempC ?: 0.0)) * (1/maxDifferenceModule)
+
+            val thermometerHeightScale = 200 * currentDifferenceModule
 
             Column(
                 modifier = Modifier
@@ -102,11 +125,12 @@ fun WeatherWeekForecastInfo(
                                 listOf(Color.Red, Color.Cyan)
                             ),
                             shape = RoundedCornerShape(10.dp)
-                        )
-                )
+                        ),
+                    contentAlignment = Alignment.BottomEnd
+                ){}
 
                 Text(
-                    text = minTemperatureValue
+                    text = minTemperatureValue,
                 )
             }
         }
