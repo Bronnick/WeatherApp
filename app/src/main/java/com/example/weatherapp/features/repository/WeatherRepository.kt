@@ -6,7 +6,10 @@ import com.example.weatherapp.features.data.WeatherInfo
 import com.example.weatherapp.features.network.WeatherService
 
 interface WeatherRepository{
-    suspend fun getWeatherInfo(cityName: String): WeatherInfo
+    suspend fun getWeatherInfo(
+        cityName: String,
+        numberOfDays: Int
+    ): WeatherInfo
 }
 
 class NetworkWeatherRepository(
@@ -16,9 +19,10 @@ class NetworkWeatherRepository(
     private val apiKey = "e3795f87e4574b59a40145056233107"
 
     override suspend fun getWeatherInfo(
-        cityName: String
+        cityName: String,
+        numberOfDays: Int
     ): WeatherInfo {
-        return weatherService.getWeatherInfo(apiKey, cityName).run {
+        return weatherService.getWeatherInfo(apiKey, cityName, numberOfDays).run {
             WeatherInfo(
                 city = location?.name,
                 country = location?.country,
@@ -28,7 +32,8 @@ class NetworkWeatherRepository(
                 feelsLikeFahrenheit = current?.feelslikeF,
                 condition = current?.condition,
                 localDate = location?.localtime,
-                hourForecastList = forecast?.forecastday?.get(0)?.hour ?: emptyList()
+                hourForecastList = forecast?.forecastday?.get(0)?.hour ?: emptyList(),
+                weekListForecast = forecast?.forecastday ?: emptyList()
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.example.weatherapp.features.data
 
 import com.example.example.Condition
+import com.example.example.Forecastday
 import com.example.example.Hour
 
 data class WeatherInfo(
@@ -17,6 +18,7 @@ data class WeatherInfo(
 
     val localDate: String?,
 
-    val hourForecastList: List<Hour>
+    val hourForecastList: List<Hour>,
+    val weekListForecast: List<Forecastday>
 
 )

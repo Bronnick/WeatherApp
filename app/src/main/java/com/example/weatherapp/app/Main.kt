@@ -9,6 +9,6 @@ suspend fun main() = coroutineScope<Unit>{
     val repository = container.networkWeatherRepository
 
     launch {
-        println(repository.getWeatherInfo("Kiev"))
+        println(repository.getWeatherInfo("Kiev",1))
     }
 }

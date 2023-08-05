@@ -78,7 +78,7 @@ fun WeatherApp(
                     weatherViewModel.changeTopBarState(TopBarState.UNFOCUSED)
                 },
                 onKeyboardSearchClick = {
-                    weatherViewModel.getWeatherInfo(it)
+                    weatherViewModel.getWeatherInfo(it, 7)
                 }
             )
         },

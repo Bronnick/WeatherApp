@@ -31,7 +31,7 @@ fun WeatherForecastInfo(
                 .horizontalScroll(ScrollState(0))
                 .padding(4.dp),
             verticalAlignment = Alignment.CenterVertically,
-        ){
+        ) {
             for(item in forecastList){
                 Column{
                     Text(

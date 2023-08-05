@@ -59,16 +59,19 @@ class WeatherViewModel(
         private set
 
     init{
-        getWeatherInfo("Kiev")
+        getWeatherInfo("Kiev", 7)
     }
 
-    fun getWeatherInfo(query: String){
+    fun getWeatherInfo(
+        query: String,
+        numberOfDays: Int
+    ) {
         viewModelScope.launch {
             weatherUiState = WeatherUiState.Loading
             weatherUiState =
                 try{
                     WeatherUiState.Success(
-                        weatherRepository.getWeatherInfo(query)
+                        weatherRepository.getWeatherInfo(query, numberOfDays)
                     )
                 } catch(e: IOException){
                     WeatherUiState.Error

@@ -5,6 +5,7 @@
     <string name="temperature_info">%1$s°%2$s</string>
     <string name="feels_like">Feels like: %1$s°%2$s</string>
 
+    <string name="https">https:%1$s</string>
 
     <string name="drawer_item1">Home</string>
     <string name="drawer_item2">Temperature</string>
