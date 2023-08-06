@@ -22,10 +22,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.weatherapp.R
-import com.example.weatherapp.features.data.DrawerState
-import com.example.weatherapp.features.data.TopBarState
-import com.example.weatherapp.features.data.WeatherUiState
-import com.example.weatherapp.features.data.WeatherViewModel
+import com.example.weatherapp.features.data.*
 import kotlinx.coroutines.launch
 
 
@@ -64,6 +61,7 @@ fun WeatherApp(
                 focusedTextState = focusedTopBarTextState,
                 onFocusedTextChange = {
                     weatherViewModel.changeFocusedTopBarTextState(it)
+                    weatherViewModel.getAutocompleteInfo(it)
                 },
                 onMenuButtonClick = {
                     scope.launch {
@@ -72,10 +70,14 @@ fun WeatherApp(
                     }
                 },
                 onUnfocusedSearchClick = {
-                    weatherViewModel.changeTopBarState(TopBarState.FOCUSED)
+                    weatherViewModel.changeTopBarState(
+                        TopBarState.Focused(
+                            emptyList()
+                        )
+                    )
                 },
                 onCancelButtonClick = {
-                    weatherViewModel.changeTopBarState(TopBarState.UNFOCUSED)
+                    weatherViewModel.changeTopBarState(TopBarState.Unfocused)
                 },
                 onKeyboardSearchClick = {
                     weatherViewModel.getWeatherInfo(it, 7)

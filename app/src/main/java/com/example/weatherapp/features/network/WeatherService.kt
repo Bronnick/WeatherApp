@@ -14,4 +14,10 @@ interface WeatherService {
         @Query("q") cityName: String,
         @Query("days") numberOfDays: Int = 1,
     ): WeatherApiResponse
+
+    @GET("search.json")
+    suspend fun getAutocompleteInfo(
+        @Header("key") apiKey: String,
+        @Query("q") query: String
+    ): List<SearchAutocompleteResponse>
 }

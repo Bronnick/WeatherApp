@@ -16,13 +16,14 @@ fun MainWeatherBar(
     onKeyboardSearchClick: (String) -> Unit
 ) {
     when(topBarState){
-        TopBarState.FOCUSED -> FocusedWeatherBar(
+        is TopBarState.Focused -> FocusedWeatherBar(
             focusedTextState = focusedTextState,
+            autocompleteList = topBarState.autocompleteList,
             onFocusedTextChange = onFocusedTextChange,
             onCancelButtonClick = onCancelButtonClick,
             onKeyboardSearchClick = onKeyboardSearchClick
         )
-        TopBarState.UNFOCUSED -> UnfocusedWeatherBar(
+        is TopBarState.Unfocused -> UnfocusedWeatherBar(
             weatherUiState = weatherUiState,
             onMenuButtonClick = onMenuButtonClick,
             onUnfocusedSearchClick = onUnfocusedSearchClick

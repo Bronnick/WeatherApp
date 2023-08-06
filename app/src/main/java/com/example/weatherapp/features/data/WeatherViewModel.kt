@@ -22,14 +22,20 @@ import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface WeatherUiState{
-    data class Success(val weatherInfo: WeatherInfo) : WeatherUiState
+    data class Success(
+        val weatherInfo: WeatherInfo
+    ) : WeatherUiState
     object Loading : WeatherUiState
     object Error : WeatherUiState
 }
 
-enum class TopBarState{
-    FOCUSED,
-    UNFOCUSED
+sealed interface TopBarState{
+    data class Focused(
+        val autocompleteList: List<AutocompleteInfo>
+    ) : TopBarState
+
+    object Unfocused : TopBarState
+
 }
 
 enum class DrawerState{
@@ -48,7 +54,7 @@ class WeatherViewModel(
     var weatherUiState : WeatherUiState by mutableStateOf(WeatherUiState.Loading)
         private set
 
-    var topBarState: TopBarState by mutableStateOf(TopBarState.UNFOCUSED)
+    var topBarState: TopBarState by mutableStateOf(TopBarState.Unfocused)
         private set
 
     var focusedTopBarTextState by mutableStateOf("")
@@ -77,6 +83,27 @@ class WeatherViewModel(
                     WeatherUiState.Error
                 } catch(e: HttpException){
                     WeatherUiState.Error
+                }
+        }
+    }
+
+    fun getAutocompleteInfo(
+        query: String
+    ) {
+        viewModelScope.launch {
+            topBarState =
+                try {
+                    TopBarState.Focused(
+                        weatherRepository.getSearchInfo(query)
+                    )
+                } catch(e: IOException){
+                    TopBarState.Focused(
+                        emptyList()
+                    )
+                } catch(e: HttpException){
+                    TopBarState.Focused(
+                        emptyList()
+                    )
                 }
         }
     }

@@ -1,9 +1,6 @@
 package com.example.weatherapp.features.ui
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -23,43 +20,51 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.ImeAction
+import com.example.weatherapp.features.data.AutocompleteInfo
 
 @Composable
 fun FocusedWeatherBar(
     focusedTextState: String,
+    autocompleteList: List<AutocompleteInfo>,
     onFocusedTextChange: (String) -> Unit,
     onCancelButtonClick: () -> Unit,
     onKeyboardSearchClick: (String) -> Unit
 ) {
 
-    TopAppBar(
-        modifier = Modifier
-            .fillMaxWidth()
-    ){
-        TextField(
-            modifier = Modifier.
-                fillMaxWidth(),
-            value = focusedTextState,
-            onValueChange = onFocusedTextChange,
-            singleLine = true,
-            trailingIcon = {
-                IconButton(
-                    onClick = onCancelButtonClick,
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Close,
-                        contentDescription = null
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onKeyboardSearchClick(focusedTextState)
-                }
+    Column {
+        TopAppBar(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = focusedTextState,
+                onValueChange = onFocusedTextChange,
+                singleLine = true,
+                trailingIcon = {
+                    IconButton(
+                        onClick = onCancelButtonClick,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = null
+                        )
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Search
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        onKeyboardSearchClick(focusedTextState)
+                    }
+                )
             )
-        )
+        }
+        for(item in autocompleteList){
+            Text(
+                text="${item.name}, ${item.region}, ${item.country}"
+            )
+        }
     }
 }

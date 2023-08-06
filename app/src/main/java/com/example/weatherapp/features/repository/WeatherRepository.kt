@@ -2,6 +2,7 @@ package com.example.weatherapp.features.repository
 
 import com.example.example.Current
 import com.example.example.WeatherApiResponse
+import com.example.weatherapp.features.data.AutocompleteInfo
 import com.example.weatherapp.features.data.WeatherInfo
 import com.example.weatherapp.features.network.WeatherService
 
@@ -10,6 +11,10 @@ interface WeatherRepository{
         cityName: String,
         numberOfDays: Int
     ): WeatherInfo
+
+    suspend fun getSearchInfo(
+        query: String
+    ): List<AutocompleteInfo>
 }
 
 class NetworkWeatherRepository(
@@ -34,6 +39,18 @@ class NetworkWeatherRepository(
                 localDate = location?.localtime,
                 hourForecastList = forecast?.forecastday?.get(0)?.hour ?: emptyList(),
                 weekListForecast = forecast?.forecastday ?: emptyList()
+            )
+        }
+    }
+
+    override suspend fun getSearchInfo(
+        query: String
+    ): List<AutocompleteInfo> {
+        return weatherService.getAutocompleteInfo(apiKey, query).map{item ->
+            AutocompleteInfo(
+                name = item.name,
+                region = item.region,
+                country = item.country
             )
         }
     }
