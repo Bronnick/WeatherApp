@@ -66,7 +66,7 @@ fun WeatherApp(
                 onMenuButtonClick = {
                     scope.launch {
                         scaffoldState.drawerState.open()
-                        Log.d("myLogs", (weatherUiState as WeatherUiState.Success).weatherInfo.condition?.icon!!)
+                        //Log.d("myLogs", (weatherUiState as WeatherUiState.Success).weatherInfo.condition?.icon!!)
                     }
                 },
                 onUnfocusedSearchClick = {

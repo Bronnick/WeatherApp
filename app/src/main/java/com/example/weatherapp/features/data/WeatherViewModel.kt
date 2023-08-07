@@ -74,16 +74,18 @@ class WeatherViewModel(
     ) {
         viewModelScope.launch {
             weatherUiState = WeatherUiState.Loading
-            weatherUiState =
-                try{
-                    WeatherUiState.Success(
-                        weatherRepository.getWeatherInfo(query, numberOfDays)
-                    )
-                } catch(e: IOException){
-                    WeatherUiState.Error
-                } catch(e: HttpException){
-                    WeatherUiState.Error
-                }
+            do {
+                weatherUiState =
+                    try {
+                        WeatherUiState.Success(
+                            weatherRepository.getWeatherInfo(query, numberOfDays)
+                        )
+                    } catch (e: IOException) {
+                        WeatherUiState.Error
+                    } catch (e: HttpException) {
+                        WeatherUiState.Error
+                    }
+            } while(weatherUiState == WeatherUiState.Error)
         }
     }
 
