@@ -1,5 +1,6 @@
 package com.example.weatherapp.features.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,6 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
 import androidx.compose.runtime.*
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.text.input.ImeAction
 import com.example.weatherapp.features.data.AutocompleteInfo
 
@@ -63,7 +66,24 @@ fun FocusedWeatherBar(
         }
         for(item in autocompleteList){
             Text(
-                text="${item.name}, ${item.region}, ${item.country}"
+                text="${item.name}, ${item.region}, ${item.country}",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 50.dp)
+                    .drawBehind {
+                        val borderSize = 1.dp
+                        drawLine(
+                            color = Color.White,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height),
+                            strokeWidth = borderSize.toPx()
+                        )
+                    }
+                    .clickable {
+                        item.name?.let{
+                            onKeyboardSearchClick(it)
+                        }
+                    }
             )
         }
     }

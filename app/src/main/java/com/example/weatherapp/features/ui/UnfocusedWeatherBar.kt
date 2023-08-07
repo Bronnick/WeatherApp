@@ -52,8 +52,7 @@ fun UnfocusedWeatherBar(
 
             if (cityName != null && country != null) {
                 Text(
-                    text =
-                    stringResource(
+                    text = stringResource(
                         R.string.location_info,
                         cityName,
                         country
@@ -64,7 +63,10 @@ fun UnfocusedWeatherBar(
             }
 
             Spacer(modifier = Modifier.weight(1f, true))
-            IconButton(onClick = onUnfocusedSearchClick) {
+
+            IconButton(
+                onClick = onUnfocusedSearchClick
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = null
