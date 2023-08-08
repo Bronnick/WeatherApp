@@ -39,6 +39,7 @@ fun WeatherApp(
     val topBarState = weatherViewModel.topBarState
     val temperatureState = weatherViewModel.temperatureState
     val focusedTopBarTextState = weatherViewModel.focusedTopBarTextState
+    val backgroundImageState = weatherViewModel.backgroundImageState
 
     Scaffold(
         modifier = Modifier
@@ -48,8 +49,12 @@ fun WeatherApp(
         drawerContent = {
             Drawer(
                 temperatureState = temperatureState,
+                backgroundImageState = backgroundImageState,
                 onTemperatureSwitch = {
                     weatherViewModel.switchTemperatureState()
+                },
+                onBackgroundImageSwitch = {
+                    weatherViewModel.switchBackgroundImageState()
                 }
             )
         },
@@ -88,7 +93,8 @@ fun WeatherApp(
         HomeScreen(
             modifier = Modifier.padding(it),
             weatherUiState = weatherUiState,
-            temperatureState = weatherViewModel.temperatureState
+            temperatureState = temperatureState,
+            backgroundImageState = backgroundImageState
         )
     }
 }

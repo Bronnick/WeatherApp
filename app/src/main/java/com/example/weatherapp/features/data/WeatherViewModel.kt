@@ -48,6 +48,11 @@ enum class TemperatureState{
     FAHRENHEIT
 }
 
+enum class BackgroundImageState{
+    ENABLED,
+    DISABLED
+}
+
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
@@ -62,6 +67,10 @@ class WeatherViewModel(
 
     var temperatureState: TemperatureState by
         mutableStateOf(TemperatureState.CELSIUS)
+        private set
+
+    var backgroundImageState: BackgroundImageState by
+        mutableStateOf(BackgroundImageState.ENABLED)
         private set
 
     init{
@@ -122,6 +131,12 @@ class WeatherViewModel(
         if(temperatureState == TemperatureState.CELSIUS)
             temperatureState = TemperatureState.FAHRENHEIT
         else temperatureState = TemperatureState.CELSIUS
+    }
+
+    fun switchBackgroundImageState(){
+        if(backgroundImageState == BackgroundImageState.ENABLED)
+            backgroundImageState = BackgroundImageState.DISABLED
+        else backgroundImageState = BackgroundImageState.ENABLED
     }
 
     companion object {

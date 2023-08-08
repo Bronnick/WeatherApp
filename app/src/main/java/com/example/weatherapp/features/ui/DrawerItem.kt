@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 fun DrawerItem(
     imageVector: ImageVector,
     text: String,
-    switchable: Boolean,
     switchState: Boolean? = null,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ){

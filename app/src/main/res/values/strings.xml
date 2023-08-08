@@ -7,7 +7,9 @@
 
     <string name="https">https:%1$s</string>
 
+    <!--scaffold strings-->
     <string name="drawer_item1">Home</string>
     <string name="drawer_item2">Temperature</string>
+    <string name="drawer_item3">Hide background image</string>
 
 </resources>

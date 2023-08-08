@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.R
+import com.example.weatherapp.features.data.BackgroundImageState
 import com.example.weatherapp.features.data.TemperatureState
 import com.example.weatherapp.features.data.WeatherInfo
 import com.example.weatherapp.features.data.WeatherUiState
@@ -25,6 +26,7 @@ import com.example.weatherapp.features.data.WeatherUiState
 fun HomeScreen(
     weatherUiState: WeatherUiState,
     temperatureState: TemperatureState,
+    backgroundImageState: BackgroundImageState,
     modifier: Modifier
 ){
     val brightness = -50f
@@ -36,21 +38,32 @@ fun HomeScreen(
         )
     )
 
-    Image(
-        modifier = Modifier.fillMaxSize(),
-        painter = painterResource(id = R.drawable.sunset_image),
-        contentScale = ContentScale.Crop,
-        contentDescription = null,
-        colorFilter = ColorFilter.colorMatrix(colorMatrix)
-    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = MaterialTheme.colors.onPrimary
+            )
+    ) {
 
-    when(weatherUiState) {
-        is WeatherUiState.Success -> WeatherMainInfoScreen(
-            weatherInfo = weatherUiState.weatherInfo,
-            temperatureState = temperatureState
-        )
-        is WeatherUiState.Error -> ErrorScreen()
-        is WeatherUiState.Loading -> LoadingScreen()
+        if (backgroundImageState == BackgroundImageState.ENABLED) {
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(id = R.drawable.sunset_image),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                colorFilter = ColorFilter.colorMatrix(colorMatrix)
+            )
+        }
+
+        when (weatherUiState) {
+            is WeatherUiState.Success -> WeatherMainInfoScreen(
+                weatherInfo = weatherUiState.weatherInfo,
+                temperatureState = temperatureState
+            )
+            is WeatherUiState.Error -> ErrorScreen()
+            is WeatherUiState.Loading -> LoadingScreen()
+        }
     }
 
 }
