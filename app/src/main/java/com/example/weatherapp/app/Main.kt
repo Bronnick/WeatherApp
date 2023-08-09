@@ -1,14 +1,22 @@
 package com.example.weatherapp.app
 
+import android.app.job.JobScheduler
 import com.example.weatherapp.features.data.AppContainer
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+
 
 suspend fun main() = coroutineScope<Unit>{
-    val container = AppContainer()
-    val repository = container.networkWeatherRepository
+    val job1 = launch {
+        for(i in 0..2){
+            println("iter $i")
+            delay(500)
+        }
+    }
 
-    launch {
-        println(repository.getWeatherInfo("Kiev",1))
+    val job2 = launch{
+        job1.join()
+        for(i in 0..2){
+            println("iteration $i")
+        }
     }
 }

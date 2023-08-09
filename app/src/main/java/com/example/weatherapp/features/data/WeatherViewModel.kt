@@ -16,6 +16,9 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.weatherapp.features.repository.NetworkWeatherRepository
 import com.example.weatherapp.features.repository.WeatherRepository
 import com.example.weatherapp.features.ui.DrawerItem
+import kotlinx.coroutines.CompletableJob
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import okhttp3.internal.immutableListOf
 import retrofit2.HttpException
@@ -56,6 +59,9 @@ enum class BackgroundImageState{
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
+
+    var weatherInfoJob: Job? = null
+
     var weatherUiState : WeatherUiState by mutableStateOf(WeatherUiState.Loading)
         private set
 
@@ -81,7 +87,12 @@ class WeatherViewModel(
         query: String,
         numberOfDays: Int
     ) {
-        viewModelScope.launch {
+        val stopGetWeatherJob = viewModelScope.launch {
+            weatherInfoJob?.cancelAndJoin()
+        }
+
+        weatherInfoJob = viewModelScope.launch {
+            stopGetWeatherJob.join()
             weatherUiState = WeatherUiState.Loading
             do {
                 weatherUiState =
