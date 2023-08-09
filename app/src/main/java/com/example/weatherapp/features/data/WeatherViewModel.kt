@@ -23,13 +23,17 @@ import kotlinx.coroutines.launch
 import okhttp3.internal.immutableListOf
 import retrofit2.HttpException
 import java.io.IOException
+import com.example.weatherapp.R
 
 sealed interface WeatherUiState{
     data class Success(
         val weatherInfo: WeatherInfo
     ) : WeatherUiState
     object Loading : WeatherUiState
-    object Error : WeatherUiState
+    data class Error(
+        val errorIconId: Int,
+        val messageId: Int
+    ) : WeatherUiState
 }
 
 sealed interface TopBarState{
@@ -101,11 +105,17 @@ class WeatherViewModel(
                             weatherRepository.getWeatherInfo(query, numberOfDays)
                         )
                     } catch (e: IOException) {
-                        WeatherUiState.Error
+                        WeatherUiState.Error(
+                            errorIconId = R.drawable.baseline_wifi_off_24,
+                            messageId = R.string.internet_connection_issue
+                        )
                     } catch (e: HttpException) {
-                        WeatherUiState.Error
+                        WeatherUiState.Error(
+                            errorIconId = R.drawable.baseline_location_off_24,
+                            messageId = R.string.location_issue
+                        )
                     }
-            } while(weatherUiState == WeatherUiState.Error)
+            } while(weatherUiState is WeatherUiState.Error)
         }
     }
 

@@ -61,7 +61,10 @@ fun HomeScreen(
                 weatherInfo = weatherUiState.weatherInfo,
                 temperatureState = temperatureState
             )
-            is WeatherUiState.Error -> ErrorScreen()
+            is WeatherUiState.Error -> ErrorScreen(
+                errorIconId = weatherUiState.errorIconId,
+                messageId = weatherUiState.messageId
+            )
             is WeatherUiState.Loading -> LoadingScreen()
         }
     }

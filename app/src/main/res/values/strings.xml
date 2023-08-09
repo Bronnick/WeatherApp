@@ -12,4 +12,7 @@
     <string name="drawer_item2">Temperature</string>
     <string name="drawer_item3">Hide background image</string>
 
+    <string name="internet_connection_issue">Check your internet connection</string>
+    <string name="location_issue">Unknown location</string>
+
 </resources>

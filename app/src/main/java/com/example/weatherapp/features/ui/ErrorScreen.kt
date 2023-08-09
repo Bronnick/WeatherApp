@@ -14,12 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
 
 @Composable
-fun ErrorScreen(){
+fun ErrorScreen(
+    errorIconId: Int,
+    messageId: Int
+){
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -28,14 +32,17 @@ fun ErrorScreen(){
     ) {
         Icon(
             painter = painterResource(
-                id = R.drawable.baseline_wifi_off_24
+                id = errorIconId
             ),
             contentDescription = null
         )
 
         Text(
             text = """Something went wrong.
-                | Check your internet connection
+                | ${stringResource(
+                        id = messageId 
+                    )
+                }
             """.trimMargin(),
             textAlign = TextAlign.Center,
             modifier = Modifier
