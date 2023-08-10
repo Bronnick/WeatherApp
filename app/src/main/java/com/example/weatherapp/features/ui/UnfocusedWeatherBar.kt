@@ -1,7 +1,7 @@
 package com.example.weatherapp.features.ui
 
 
-import androidx.compose.foundation.horizontalScroll
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.Icon
@@ -11,12 +11,10 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.R
-import com.example.weatherapp.features.data.TopBarState
 import com.example.weatherapp.features.data.WeatherUiState
 
 
@@ -34,9 +32,7 @@ fun UnfocusedWeatherBar(
         country = weatherUiState.weatherInfo.country
     }
 
-    TopAppBar(
-        backgroundColor = Color.Transparent.copy(alpha = 0.1f)
-    ) {
+    TopAppBar {
         Row {
             IconButton(
                 onClick = {

@@ -1,26 +1,15 @@
 package com.example.weatherapp.features.data
 
-import android.util.Log
-import androidx.compose.material.Icon
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
+
 import androidx.compose.runtime.*
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.weatherapp.features.repository.NetworkWeatherRepository
 import com.example.weatherapp.features.repository.WeatherRepository
-import com.example.weatherapp.features.ui.DrawerItem
-import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
-import okhttp3.internal.immutableListOf
 import retrofit2.HttpException
 import java.io.IOException
 import com.example.weatherapp.R
@@ -45,10 +34,6 @@ sealed interface TopBarState{
 
 }
 
-enum class DrawerState{
-    OPENED,
-    CLOSED
-}
 
 enum class TemperatureState{
     CELSIUS,
@@ -64,7 +49,7 @@ class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
 
-    var weatherInfoJob: Job? = null
+    private var weatherInfoJob: Job? = null
 
     var weatherUiState : WeatherUiState by mutableStateOf(WeatherUiState.Loading)
         private set
@@ -149,15 +134,15 @@ class WeatherViewModel(
     }
 
     fun switchTemperatureState(){
-        if(temperatureState == TemperatureState.CELSIUS)
-            temperatureState = TemperatureState.FAHRENHEIT
-        else temperatureState = TemperatureState.CELSIUS
+        temperatureState = if(temperatureState == TemperatureState.CELSIUS)
+            TemperatureState.FAHRENHEIT
+            else TemperatureState.CELSIUS
     }
 
     fun switchBackgroundImageState(){
-        if(backgroundImageState == BackgroundImageState.ENABLED)
-            backgroundImageState = BackgroundImageState.DISABLED
-        else backgroundImageState = BackgroundImageState.ENABLED
+        backgroundImageState = if(backgroundImageState == BackgroundImageState.ENABLED)
+            BackgroundImageState.DISABLED
+            else BackgroundImageState.ENABLED
     }
 
     companion object {
