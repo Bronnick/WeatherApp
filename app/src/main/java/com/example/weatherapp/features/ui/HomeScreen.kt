@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
@@ -49,8 +50,7 @@ fun HomeScreen(
         }
 
         Box(
-            modifier = Modifier
-                .verticalScroll(ScrollState(0))
+            contentAlignment = Alignment.Center
         ) {
             when (weatherUiState) {
                 is WeatherUiState.Success -> WeatherMainInfoScreen(

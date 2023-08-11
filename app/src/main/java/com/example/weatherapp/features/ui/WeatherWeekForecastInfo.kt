@@ -28,21 +28,6 @@ fun WeatherWeekForecastInfo(
 ) {
     val weekForecastList = weatherInfo.weekListForecast
 
-    var maxDifferenceModule = 0.0
-    var minDifferenceModule = 0.0
-
-    if(temperatureState == TemperatureState.CELSIUS) {
-        for (item in weekForecastList) {
-            val currentDifferenceModule = (item.day?.maxtempC ?: 0.0) - (item.day?.mintempC ?: 0.0)
-            if (currentDifferenceModule > maxDifferenceModule){
-                maxDifferenceModule = currentDifferenceModule
-            }
-            if(currentDifferenceModule < minDifferenceModule){
-                minDifferenceModule = currentDifferenceModule
-            }
-        }
-    }
-
     Row(
         modifier = Modifier
             .padding(all = 4.dp)
