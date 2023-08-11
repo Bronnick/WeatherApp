@@ -49,6 +49,7 @@ fun WeatherWeekForecastInfo(
             .fillMaxWidth()
             .background(color = MaterialTheme.colors.background)
             .horizontalScroll(ScrollState(0)),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         for (item in weekForecastList) {
             val minTempC = item.day?.mintempC

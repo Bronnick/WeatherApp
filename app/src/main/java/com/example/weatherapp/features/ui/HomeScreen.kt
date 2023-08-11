@@ -1,7 +1,6 @@
 package com.example.weatherapp.features.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -49,16 +48,21 @@ fun HomeScreen(
             )
         }
 
-        when (weatherUiState) {
-            is WeatherUiState.Success -> WeatherMainInfoScreen(
-                weatherInfo = weatherUiState.weatherInfo,
-                temperatureState = temperatureState
-            )
-            is WeatherUiState.Error -> ErrorScreen(
-                errorIconId = weatherUiState.errorIconId,
-                messageId = weatherUiState.messageId
-            )
-            is WeatherUiState.Loading -> LoadingScreen()
+        Box(
+            modifier = Modifier
+                .verticalScroll(ScrollState(0))
+        ) {
+            when (weatherUiState) {
+                is WeatherUiState.Success -> WeatherMainInfoScreen(
+                    weatherInfo = weatherUiState.weatherInfo,
+                    temperatureState = temperatureState
+                )
+                is WeatherUiState.Error -> ErrorScreen(
+                    errorIconId = weatherUiState.errorIconId,
+                    messageId = weatherUiState.messageId
+                )
+                is WeatherUiState.Loading -> LoadingScreen()
+            }
         }
     }
 
