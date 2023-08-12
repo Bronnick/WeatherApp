@@ -1,8 +1,8 @@
-package com.example.weatherapp.features.data
+package com.example.weatherapp.features.data.classes
 
-import com.example.example.Condition
-import com.example.example.Forecastday
-import com.example.example.Hour
+import com.example.weatherapp.features.network.classes.Condition
+import com.example.weatherapp.features.network.classes.Forecastday
+import com.example.weatherapp.features.network.classes.Hour
 
 data class WeatherInfo(
 

@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import com.example.weatherapp.R
+import com.example.weatherapp.features.data.classes.AutocompleteInfo
+import com.example.weatherapp.features.data.classes.WeatherInfo
 
 sealed interface WeatherUiState{
     data class Success(

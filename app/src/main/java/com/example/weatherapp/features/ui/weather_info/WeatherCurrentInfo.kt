@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.features.data.TemperatureState
-import com.example.weatherapp.features.data.WeatherInfo
+import com.example.weatherapp.features.data.classes.WeatherInfo
 
 @Composable
 fun WeatherCurrentInfo(

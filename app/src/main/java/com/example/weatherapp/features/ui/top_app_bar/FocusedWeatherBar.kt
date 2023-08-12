@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.text.input.ImeAction
-import com.example.weatherapp.features.data.AutocompleteInfo
+import com.example.weatherapp.features.data.classes.AutocompleteInfo
 
 @Composable
 fun FocusedWeatherBar(

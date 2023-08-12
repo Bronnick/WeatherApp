@@ -1,4 +1,4 @@
-package com.example.example
+package com.example.weatherapp.features.network.classes
 
 import com.google.gson.annotations.SerializedName
 

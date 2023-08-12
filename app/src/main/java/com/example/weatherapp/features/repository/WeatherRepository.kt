@@ -1,9 +1,7 @@
 package com.example.weatherapp.features.repository
 
-import com.example.example.Current
-import com.example.example.WeatherApiResponse
-import com.example.weatherapp.features.data.AutocompleteInfo
-import com.example.weatherapp.features.data.WeatherInfo
+import com.example.weatherapp.features.data.classes.AutocompleteInfo
+import com.example.weatherapp.features.data.classes.WeatherInfo
 import com.example.weatherapp.features.network.WeatherService
 
 interface WeatherRepository{

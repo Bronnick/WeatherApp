@@ -1,4 +1,4 @@
-package com.example.weatherapp.features.data
+package com.example.weatherapp.features.data.classes
 
 data class AutocompleteInfo (
 

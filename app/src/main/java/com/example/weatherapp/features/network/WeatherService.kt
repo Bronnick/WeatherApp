@@ -1,6 +1,7 @@
 package com.example.weatherapp.features.network
 
-import com.example.example.WeatherApiResponse
+import com.example.weatherapp.features.network.classes.SearchAutocompleteResponse
+import com.example.weatherapp.features.network.classes.WeatherApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
