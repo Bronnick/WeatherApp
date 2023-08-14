@@ -31,7 +31,6 @@ fun WeatherApp(
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-
         scaffoldState = scaffoldState,
         drawerContent = {
             Drawer(

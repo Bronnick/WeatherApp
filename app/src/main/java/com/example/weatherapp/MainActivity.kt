@@ -15,7 +15,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WeatherAppTheme {
-                // A surface container using the 'background' color from the theme
                 WeatherApp()
             }
         }

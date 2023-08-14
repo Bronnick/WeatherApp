@@ -4,6 +4,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -33,7 +34,7 @@ fun WeatherWeekForecastInfo(
             .padding(all = 4.dp)
             .fillMaxWidth()
             .background(color = MaterialTheme.colors.background)
-            .horizontalScroll(ScrollState(0)),
+            .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         for (item in weekForecastList) {

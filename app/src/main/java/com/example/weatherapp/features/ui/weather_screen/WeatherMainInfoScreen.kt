@@ -27,7 +27,8 @@ fun WeatherMainInfoScreen(
         )
 
         WeatherForecastInfo(
-            weatherInfo = weatherInfo
+            weatherInfo = weatherInfo,
+            temperatureState = temperatureState
         )
 
         WeatherWeekForecastInfo(

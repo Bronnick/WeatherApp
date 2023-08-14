@@ -78,7 +78,10 @@ fun WeatherCurrentInfo(
                         AsyncImage(
                             modifier = Modifier
                                 .size(50.dp),
-                            model = "https:${weatherInfo.condition?.icon}",
+                            model = stringResource(
+                                id = R.string.https,
+                                weatherInfo.condition?.icon.toString()
+                            ),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                         )

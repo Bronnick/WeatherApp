@@ -1,5 +1,6 @@
 package com.example.weatherapp.features.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
@@ -10,6 +11,7 @@ import androidx.compose.ui.res.vectorResource
 import com.example.weatherapp.R
 import com.example.weatherapp.features.data.BackgroundImageState
 import com.example.weatherapp.features.data.TemperatureState
+import androidx.compose.ui.Modifier
 
 @Composable
 fun Drawer(
@@ -19,10 +21,6 @@ fun Drawer(
     onBackgroundImageSwitch: (Boolean) -> Unit
 ) {
 
-    DrawerItem(
-        imageVector = Icons.Filled.Home,
-        text = stringResource(id = R.string.drawer_item1)
-    )
     DrawerItem(
         imageVector = Icons.Filled.Star,
         text = stringResource(id = R.string.drawer_item2),

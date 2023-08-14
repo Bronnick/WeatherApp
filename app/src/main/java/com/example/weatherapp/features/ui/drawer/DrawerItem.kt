@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DrawerItem(
+    modifier: Modifier = Modifier,
     imageVector: ImageVector,
     text: String,
     switchState: Boolean? = null,
