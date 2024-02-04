@@ -1,6 +1,8 @@
 package com.example.weatherapp.features.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
@@ -20,21 +22,23 @@ fun Drawer(
     onTemperatureSwitch: (Boolean) -> Unit,
     onBackgroundImageSwitch: (Boolean) -> Unit
 ) {
-
-    DrawerItem(
-        imageVector = Icons.Filled.Star,
-        text = stringResource(id = R.string.drawer_item2),
-        switchState =
-            if(temperatureState == TemperatureState.CELSIUS) false else true,
-        onCheckedChange = onTemperatureSwitch
-    )
+    Row {
+        DrawerItem(
+            imageVector = Icons.Filled.Star,
+            beforeText = stringResource(id = R.string.drawer_item2),
+            afterText = "°F",
+            switchState =
+                temperatureState != TemperatureState.CELSIUS,
+            onCheckedChange = onTemperatureSwitch
+        )
+    }
     DrawerItem(
         imageVector = ImageVector.vectorResource(
             id = R.drawable.baseline_image_24
         ),
-        text = stringResource(id = R.string.drawer_item3),
+        beforeText = stringResource(id = R.string.drawer_item3),
         switchState =
-            if(backgroundImageState == BackgroundImageState.ENABLED) false else true,
+            backgroundImageState != BackgroundImageState.ENABLED,
         onCheckedChange = onBackgroundImageSwitch
     )
 

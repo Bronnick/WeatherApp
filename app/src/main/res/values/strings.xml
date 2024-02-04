@@ -9,7 +9,7 @@
 
     <!--scaffold strings-->
     <string name="drawer_item1">Home</string>
-    <string name="drawer_item2">Temperature</string>
+    <string name="drawer_item2">Temperature °C</string>
     <string name="drawer_item3">Hide background image</string>
 
     <string name="internet_connection_issue">Check your internet connection</string>

@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 fun DrawerItem(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    text: String,
+    beforeText: String = "",
+    afterText: String = "",
     switchState: Boolean? = null,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ){
@@ -45,7 +46,7 @@ fun DrawerItem(
         )
 
         Text(
-            text = text
+            text = beforeText
         )
 
         if(switchState != null) {
@@ -54,5 +55,9 @@ fun DrawerItem(
                 onCheckedChange = onCheckedChange
             )
         }
+
+        Text(
+            text = afterText
+        )
     }
 }
