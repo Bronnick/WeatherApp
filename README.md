@@ -18,7 +18,6 @@ ___
 + Kotlin
 + Jetpack
   + Compose for UI and navigation
-  + Room for interaction with the database
 + Retrofit for networking
 + Kotlin Coroutines for asynchronous work
 + Coil for loading images asynchronously
